@@ -14,6 +14,17 @@ rule ntds_file : usernames hashed_passwords active_directory windows passwords
         ($filemagic at 4) and (int32(12) == 0 or int32(12) == 1) and all of ($content_*)
 }
 
+rule testing : test_rule
+{
+    meta:
+	author = "test"
+	description = "test"
+    strings:
+    	$10 = "setGlobalVariable" nocase ascii
+    condition:
+    	$10
+}
+
 rule hive_file : usernames hashed_passwords registry windows passwords
 {
     meta:
